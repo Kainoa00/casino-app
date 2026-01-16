@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-casino-darker text-white min-h-screen;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-casino-accent hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition-all duration-200 transform hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply bg-casino-purple hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-all duration-200;
+  }
+
+  .btn-gold {
+    @apply bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black font-bold py-2 px-6 rounded-lg transition-all duration-200 animate-pulse-gold;
+  }
+
+  .card {
+    @apply bg-casino-dark rounded-xl p-6 shadow-lg border border-gray-800;
+  }
+
+  .input-field {
+    @apply w-full bg-casino-darker border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-casino-accent focus:outline-none transition-colors;
+  }
+
+  .game-card {
+    @apply bg-gradient-to-br from-casino-dark to-casino-darker rounded-xl p-4 border-2 border-transparent hover:border-casino-gold transition-all duration-300 cursor-pointer;
+  }
+
+  .pattern-item {
+    @apply w-16 h-24 rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300;
+  }
+
+  .pattern-item-card {
+    @apply bg-white text-black shadow-lg;
+  }
+
+  .pattern-item-number {
+    @apply bg-gradient-to-br from-blue-500 to-blue-700 text-white;
+  }
+
+  .pattern-item-color {
+    @apply rounded-full w-16 h-16;
+  }
+}
