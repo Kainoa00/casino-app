@@ -38,12 +38,24 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const loginAsGuest = async () => {
+    try {
+      const data = await api.loginAsGuest();
+      localStorage.setItem('token', data.token);
+      setUser(data.user);
+      return data;
+    } catch (error) {
+      console.error('Guest login failed', error);
+      throw error;
+    }
+  };
+
   const updateBalance = (newBalance) => {
     setUser(prev => ({ ...prev, balance: newBalance }));
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateBalance }}>
+    <AuthContext.Provider value={{ user, loading, login, register, loginAsGuest, logout, updateBalance }}>
       {children}
     </AuthContext.Provider>
   );

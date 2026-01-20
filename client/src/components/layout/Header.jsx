@@ -38,7 +38,7 @@ export default function Header() {
             onClick={logout}
             className="text-gray-400 hover:text-white transition-colors"
           >
-            Logout
+            Exit
           </button>
         </div>
       </div>

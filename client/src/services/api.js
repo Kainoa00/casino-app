@@ -37,6 +37,11 @@ export const register = (username, password) =>
 
 export const getProfile = () => request('/auth/profile');
 
+export const loginAsGuest = () =>
+  request('/auth/guest', {
+    method: 'POST'
+  });
+
 // Currency
 export const getBalance = () => request('/currency/balance');
 

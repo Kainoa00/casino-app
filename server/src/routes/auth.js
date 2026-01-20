@@ -5,6 +5,34 @@ import { generateToken, authenticateRequest } from '../middleware/auth.js';
 
 const router = Router();
 
+router.post('/guest', async (req, res) => {
+  try {
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substring(2, 7);
+    const username = `Guest_${timestamp}${random}`;
+
+    // Create a random high-entropy password that the user will never know/need
+    // This allows us to keep the existing database schema
+    const randomPassword = Math.random().toString(36) + Date.now().toString();
+    const passwordHash = await bcrypt.hash(randomPassword, 10);
+
+    const user = userOps.create(username, passwordHash);
+    const token = generateToken(user.id);
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        balance: user.balance
+      }
+    });
+  } catch (error) {
+    console.error('Guest login error:', error);
+    res.status(500).json({ error: 'Failed to create guest session' });
+  }
+});
+
 router.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
