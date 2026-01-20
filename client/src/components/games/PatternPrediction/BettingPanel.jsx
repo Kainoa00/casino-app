@@ -44,56 +44,58 @@ export default function BettingPanel({
   const renderBinaryOptions = () => {
     if (patternType === 'cards') {
       return (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-6">
           <button
             onClick={() => setSelectedGuess({ isRed: true, color: 'red' })}
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.color === 'red'
-                ? 'border-casino-gold bg-red-500/20'
-                : 'border-gray-700 hover:border-gray-500'
-            }`}
+            className={`h-32 rounded-xl border-4 transition-all transform hover:scale-105 shadow-xl flex flex-col items-center justify-center relative overflow-hidden ${selectedGuess?.color === 'red'
+                ? 'border-casino-gold bg-red-900/80 shadow-red-500/20'
+                : 'border-red-800 bg-red-950/40 hover:bg-red-900/60'
+              }`}
           >
-            <span className="text-3xl text-red-500">♥♦</span>
-            <div className="mt-2 font-bold">Red</div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+              <span className="text-8xl">♥</span>
+            </div>
+            <span className="text-5xl text-red-500 mb-2 drop-shadow-lg">RED</span>
+            <div className="text-xs tracking-widest uppercase text-red-200">Hearts & Diamonds</div>
           </button>
           <button
             onClick={() => setSelectedGuess({ isRed: false, color: 'black' })}
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.color === 'black'
-                ? 'border-casino-gold bg-gray-500/20'
-                : 'border-gray-700 hover:border-gray-500'
-            }`}
+            className={`h-32 rounded-xl border-4 transition-all transform hover:scale-105 shadow-xl flex flex-col items-center justify-center relative overflow-hidden ${selectedGuess?.color === 'black'
+                ? 'border-casino-gold bg-gray-900/90 shadow-gray-500/20'
+                : 'border-gray-800 bg-black/40 hover:bg-black/60'
+              }`}
           >
-            <span className="text-3xl">♠♣</span>
-            <div className="mt-2 font-bold">Black</div>
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+              <span className="text-8xl text-white">♠</span>
+            </div>
+            <span className="text-5xl text-gray-200 mb-2 drop-shadow-lg">BLACK</span>
+            <div className="text-xs tracking-widest uppercase text-gray-400">Spades & Clubs</div>
           </button>
         </div>
       );
     } else if (patternType === 'numbers') {
       const lastNum = sequence[sequence.length - 1]?.value;
       return (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-6">
           <button
             onClick={() => setSelectedGuess({ higher: true })}
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.higher === true
-                ? 'border-casino-gold bg-green-500/20'
-                : 'border-gray-700 hover:border-gray-500'
-            }`}
+            className={`h-32 rounded-xl border-4 transition-all transform hover:scale-105 shadow-xl flex flex-col items-center justify-center ${selectedGuess?.higher === true
+                ? 'border-casino-gold bg-green-900/80'
+                : 'border-green-800 bg-green-950/40 hover:bg-green-900/60'
+              }`}
           >
-            <span className="text-3xl">↑</span>
-            <div className="mt-2 font-bold">Higher than {lastNum}</div>
+            <span className="text-5xl text-green-400 mb-2">High ▲</span>
+            <div className="text-sm text-green-200">Higher than {lastNum}</div>
           </button>
           <button
             onClick={() => setSelectedGuess({ higher: false })}
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.higher === false
-                ? 'border-casino-gold bg-red-500/20'
-                : 'border-gray-700 hover:border-gray-500'
-            }`}
+            className={`h-32 rounded-xl border-4 transition-all transform hover:scale-105 shadow-xl flex flex-col items-center justify-center ${selectedGuess?.higher === false
+                ? 'border-casino-gold bg-red-900/80'
+                : 'border-red-800 bg-red-950/40 hover:bg-red-900/60'
+              }`}
           >
-            <span className="text-3xl">↓</span>
-            <div className="mt-2 font-bold">Lower than {lastNum}</div>
+            <span className="text-5xl text-red-400 mb-2">Low ▼</span>
+            <div className="text-sm text-red-200">Lower than {lastNum}</div>
           </button>
         </div>
       );
@@ -102,33 +104,31 @@ export default function BettingPanel({
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={() => setSelectedGuess({ warm: true })}
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.warm === true
-                ? 'border-casino-gold bg-orange-500/20'
-                : 'border-gray-700 hover:border-gray-500'
-            }`}
+            className={`p-6 rounded-xl border-2 transition-all ${selectedGuess?.warm === true
+                ? 'border-casino-gold bg-orange-900/50'
+                : 'border-orange-900/30 hover:border-orange-700 bg-black/20'
+              }`}
           >
-            <div className="flex gap-1 justify-center text-2xl">
-              <span className="text-red-500">●</span>
-              <span className="text-orange-500">●</span>
-              <span className="text-yellow-500">●</span>
+            <div className="flex gap-2 justify-center text-3xl mb-2">
+              <span className="text-red-500 drop-shadow-lg">●</span>
+              <span className="text-orange-500 drop-shadow-lg">●</span>
+              <span className="text-yellow-500 drop-shadow-lg">●</span>
             </div>
-            <div className="mt-2 font-bold">Warm Color</div>
+            <div className="text-xl font-bold text-orange-400">Warm Colors</div>
           </button>
           <button
             onClick={() => setSelectedGuess({ warm: false })}
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.warm === false
-                ? 'border-casino-gold bg-blue-500/20'
-                : 'border-gray-700 hover:border-gray-500'
-            }`}
+            className={`p-6 rounded-xl border-2 transition-all ${selectedGuess?.warm === false
+                ? 'border-casino-gold bg-blue-900/50'
+                : 'border-blue-900/30 hover:border-blue-700 bg-black/20'
+              }`}
           >
-            <div className="flex gap-1 justify-center text-2xl">
-              <span className="text-green-500">●</span>
-              <span className="text-blue-500">●</span>
-              <span className="text-purple-500">●</span>
+            <div className="flex gap-2 justify-center text-3xl mb-2">
+              <span className="text-green-500 drop-shadow-lg">●</span>
+              <span className="text-blue-500 drop-shadow-lg">●</span>
+              <span className="text-purple-500 drop-shadow-lg">●</span>
             </div>
-            <div className="mt-2 font-bold">Cool Color</div>
+            <div className="text-xl font-bold text-blue-400">Cool Colors</div>
           </button>
         </div>
       );
@@ -143,11 +143,10 @@ export default function BettingPanel({
             <button
               key={suit}
               onClick={() => setSelectedGuess({ suit })}
-              className={`p-3 rounded-lg border-2 transition-all ${
-                selectedGuess?.suit === suit
+              className={`p-3 rounded-lg border-2 transition-all ${selectedGuess?.suit === suit
                   ? 'border-casino-gold bg-casino-accent/20'
                   : 'border-gray-700 hover:border-gray-500'
-              }`}
+                }`}
             >
               <span className={`text-3xl ${SUIT_SYMBOLS[suit].color}`}>
                 {SUIT_SYMBOLS[suit].symbol}
@@ -161,22 +160,20 @@ export default function BettingPanel({
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={() => setSelectedGuess({ value: 0 })} // Even
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.value === 0
+            className={`p-4 rounded-lg border-2 transition-all ${selectedGuess?.value === 0
                 ? 'border-casino-gold bg-blue-500/20'
                 : 'border-gray-700 hover:border-gray-500'
-            }`}
+              }`}
           >
             <div className="text-2xl font-bold">2, 4, 6...</div>
             <div className="mt-2 font-bold">Even Number</div>
           </button>
           <button
             onClick={() => setSelectedGuess({ value: 1 })} // Odd
-            className={`p-4 rounded-lg border-2 transition-all ${
-              selectedGuess?.value === 1
+            className={`p-4 rounded-lg border-2 transition-all ${selectedGuess?.value === 1
                 ? 'border-casino-gold bg-purple-500/20'
                 : 'border-gray-700 hover:border-gray-500'
-            }`}
+              }`}
           >
             <div className="text-2xl font-bold">1, 3, 5...</div>
             <div className="mt-2 font-bold">Odd Number</div>
@@ -190,11 +187,10 @@ export default function BettingPanel({
             <button
               key={color}
               onClick={() => setSelectedGuess({ color })}
-              className={`p-3 rounded-lg border-2 transition-all ${
-                selectedGuess?.color === color
+              className={`p-3 rounded-lg border-2 transition-all ${selectedGuess?.color === color
                   ? 'border-casino-gold'
                   : 'border-gray-700 hover:border-gray-500'
-              }`}
+                }`}
             >
               <span className={`text-3xl bg-${color}-500 w-8 h-8 rounded-full inline-block`}
                 style={{ backgroundColor: color }}
@@ -217,11 +213,10 @@ export default function BettingPanel({
                 <button
                   key={suit}
                   onClick={() => setSelectedGuess(prev => ({ ...prev, suit }))}
-                  className={`p-2 rounded-lg border-2 transition-all ${
-                    selectedGuess?.suit === suit
+                  className={`p-2 rounded-lg border-2 transition-all ${selectedGuess?.suit === suit
                       ? 'border-casino-gold bg-casino-accent/20'
                       : 'border-gray-700 hover:border-gray-500'
-                  }`}
+                    }`}
                 >
                   <span className={`text-2xl ${SUIT_SYMBOLS[suit].color}`}>
                     {SUIT_SYMBOLS[suit].symbol}
@@ -237,11 +232,10 @@ export default function BettingPanel({
                 <button
                   key={value}
                   onClick={() => setSelectedGuess(prev => ({ ...prev, value }))}
-                  className={`p-2 rounded-lg border-2 transition-all text-sm ${
-                    selectedGuess?.value === value
+                  className={`p-2 rounded-lg border-2 transition-all text-sm ${selectedGuess?.value === value
                       ? 'border-casino-gold bg-casino-accent/20'
                       : 'border-gray-700 hover:border-gray-500'
-                  }`}
+                    }`}
                 >
                   {value}
                 </button>
@@ -270,11 +264,10 @@ export default function BettingPanel({
             <button
               key={color}
               onClick={() => setSelectedGuess({ color, shape: 'circle' })}
-              className={`p-3 rounded-lg border-2 transition-all ${
-                selectedGuess?.color === color
+              className={`p-3 rounded-lg border-2 transition-all ${selectedGuess?.color === color
                   ? 'border-casino-gold'
                   : 'border-gray-700 hover:border-gray-500'
-              }`}
+                }`}
             >
               <div
                 className="w-8 h-8 rounded-full mx-auto"
@@ -306,11 +299,10 @@ export default function BettingPanel({
                 key={amount}
                 onClick={() => setBetAmount(Math.min(amount, balance))}
                 disabled={amount > balance}
-                className={`px-3 py-1 rounded text-sm transition-colors ${
-                  betAmount === amount
+                className={`px-3 py-1 rounded text-sm transition-colors ${betAmount === amount
                     ? 'bg-casino-gold text-black'
                     : 'bg-casino-darker text-gray-400 hover:text-white disabled:opacity-50'
-                }`}
+                  }`}
               >
                 {amount}
               </button>
@@ -324,33 +316,30 @@ export default function BettingPanel({
         <div className="grid grid-cols-3 gap-2">
           <button
             onClick={() => { setGuessType('binary'); setSelectedGuess(null); }}
-            className={`p-3 rounded-lg border-2 transition-all ${
-              guessType === 'binary'
+            className={`p-3 rounded-lg border-2 transition-all ${guessType === 'binary'
                 ? 'border-casino-gold bg-casino-gold/10'
                 : 'border-gray-700 hover:border-gray-500'
-            }`}
+              }`}
           >
             <div className="text-casino-gold font-bold">{payouts?.binary || 1.5}x</div>
             <div className="text-sm text-gray-400">Binary</div>
           </button>
           <button
             onClick={() => { setGuessType('category'); setSelectedGuess(null); }}
-            className={`p-3 rounded-lg border-2 transition-all ${
-              guessType === 'category'
+            className={`p-3 rounded-lg border-2 transition-all ${guessType === 'category'
                 ? 'border-casino-gold bg-casino-gold/10'
                 : 'border-gray-700 hover:border-gray-500'
-            }`}
+              }`}
           >
             <div className="text-casino-gold font-bold">{payouts?.category || 2}x</div>
             <div className="text-sm text-gray-400">Category</div>
           </button>
           <button
             onClick={() => { setGuessType('exact'); setSelectedGuess(null); }}
-            className={`p-3 rounded-lg border-2 transition-all ${
-              guessType === 'exact'
+            className={`p-3 rounded-lg border-2 transition-all ${guessType === 'exact'
                 ? 'border-casino-gold bg-casino-gold/10'
                 : 'border-gray-700 hover:border-gray-500'
-            }`}
+              }`}
           >
             <div className="text-casino-gold font-bold">{payouts?.exact || 5}x</div>
             <div className="text-sm text-gray-400">Exact</div>

@@ -12,9 +12,13 @@ export function AuthProvider({ children }) {
     if (token) {
       api.getProfile()
         .then(data => setUser(data.user))
-        .catch(() => localStorage.removeItem('token'))
+        .catch(() => {
+          localStorage.removeItem('token');
+          setUser({ isGuest: true });
+        })
         .finally(() => setLoading(false));
     } else {
+      setUser({ isGuest: true });
       setLoading(false);
     }
   }, []);
@@ -35,19 +39,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     localStorage.removeItem('token');
-    setUser(null);
-  };
-
-  const loginAsGuest = async () => {
-    try {
-      const data = await api.loginAsGuest();
-      localStorage.setItem('token', data.token);
-      setUser(data.user);
-      return data;
-    } catch (error) {
-      console.error('Guest login failed', error);
-      throw error;
-    }
+    setUser({ isGuest: true });
   };
 
   const updateBalance = (newBalance) => {
@@ -55,7 +47,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, loginAsGuest, logout, updateBalance }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, updateBalance }}>
       {children}
     </AuthContext.Provider>
   );

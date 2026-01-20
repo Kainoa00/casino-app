@@ -26,12 +26,12 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-casino-dark">
       <div className="card max-w-md w-full">
         <div className="text-center mb-8">
-          <span className="text-6xl">🎰</span>
-          <h1 className="text-3xl font-bold mt-4 bg-gradient-to-r from-casino-gold to-yellow-300 bg-clip-text text-transparent">
-            Social Casino
+          <span className="text-6xl">🎮</span>
+          <h1 className="text-3xl font-bold mt-4 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            Social Arcade
           </h1>
           <p className="text-gray-400 mt-2">Sign in to play</p>
         </div>
@@ -74,7 +74,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full py-3"
+            className="btn-primary w-full py-3 bg-purple-500 hover:bg-purple-600"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
@@ -82,7 +82,7 @@ export default function Login() {
 
         <p className="text-center text-gray-400 mt-6">
           Don't have an account?{' '}
-          <Link to="/register" className="text-casino-accent hover:underline">
+          <Link to="/register" className="text-purple-400 hover:underline">
             Register
           </Link>
         </p>

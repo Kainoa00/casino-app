@@ -21,7 +21,7 @@ body {
   }
 
   .card {
-    @apply bg-casino-dark rounded-xl p-6 shadow-lg border border-gray-800;
+    @apply bg-casino-surface rounded-xl p-6 shadow-xl border border-white/5;
   }
 
   .input-field {

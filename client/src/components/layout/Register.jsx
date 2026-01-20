@@ -32,20 +32,21 @@ export default function Register() {
       navigate('/');
     } catch (err) {
       setError(err.message);
-    } finally {
+    }
+    finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-casino-dark">
       <div className="card max-w-md w-full">
         <div className="text-center mb-8">
-          <span className="text-6xl">🎰</span>
-          <h1 className="text-3xl font-bold mt-4 bg-gradient-to-r from-casino-gold to-yellow-300 bg-clip-text text-transparent">
-            Join the Fun!
+          <span className="text-6xl">🎮</span>
+          <h1 className="text-3xl font-bold mt-4 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            Create an Account
           </h1>
-          <p className="text-gray-400 mt-2">Create your account and get 10,000 free coins!</p>
+          <p className="text-gray-400 mt-2">Create an account to save your progress and compete on the leaderboard.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -102,7 +103,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="btn-gold w-full py-3"
+            className="btn-primary w-full py-3 bg-purple-500 hover:bg-purple-600"
           >
             {loading ? 'Creating Account...' : 'Start Playing!'}
           </button>
@@ -110,7 +111,7 @@ export default function Register() {
 
         <p className="text-center text-gray-400 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-casino-accent hover:underline">
+          <Link to="/login" className="text-purple-400 hover:underline">
             Sign In
           </Link>
         </p>

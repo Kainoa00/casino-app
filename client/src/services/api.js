@@ -49,13 +49,33 @@ export const claimDailyBonus = () =>
   request('/currency/daily-bonus', { method: 'POST' });
 
 // Games
-export const getPatternGame = (difficulty = 'medium') =>
-  request(`/games/pattern-prediction/new?difficulty=${difficulty}`);
+export const getPatternGame = (difficulty = 'medium', patternType = '') =>
+  request(`/games/pattern-prediction/new?difficulty=${difficulty}&patternType=${patternType}`);
 
-export const submitPatternGuess = (gameId, guess, betAmount) =>
+export const submitPatternGuess = (gameId, guess, guessType, betAmount) =>
   request('/games/pattern-prediction/guess', {
     method: 'POST',
-    body: JSON.stringify({ gameId, guess, betAmount })
+    body: JSON.stringify({ gameId, guess, guessType, betAmount })
+  });
+
+// Slots
+export const spinSlots = (betAmount) =>
+  request('/games/slots/spin', {
+    method: 'POST',
+    body: JSON.stringify({ betAmount })
+  });
+
+// Blackjack
+export const startBlackjack = (betAmount) =>
+  request('/games/blackjack/play', {
+    method: 'POST',
+    body: JSON.stringify({ betAmount })
+  });
+
+export const blackjackAction = (gameId, action) =>
+  request('/games/blackjack/action', {
+    method: 'POST',
+    body: JSON.stringify({ gameId, action })
   });
 
 // Leaderboard

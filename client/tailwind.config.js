@@ -8,12 +8,13 @@ export default {
     extend: {
       colors: {
         casino: {
-          dark: '#1a1a2e',
-          darker: '#16162a',
-          accent: '#e94560',
-          gold: '#ffd700',
-          green: '#00d26a',
-          purple: '#7b2cbf'
+          dark: '#0a0a0a',      // Rich Black
+          darker: '#050505',    // Pure Black
+          accent: '#c41e3a',    // Crimson Red
+          gold: '#d4af37',      // Metallic Gold
+          green: '#10b981',     // Emerald/Felt Green
+          purple: '#3b0764',    // Deep Royal Purple
+          surface: '#18181b',   // Zinc 900 for cards
         }
       },
       animation: {

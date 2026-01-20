@@ -18,16 +18,19 @@ export default function PatternPrediction() {
   const [patternType, setPatternType] = useState('');
   const [result, setResult] = useState(null);
   const [betAmount, setBetAmount] = useState(100);
+  const [error, setError] = useState(null);
 
   const startSinglePlayer = async () => {
     setLoading(true);
+    setError(null);
     try {
-      const data = await api.getPatternGame(difficulty);
+      const data = await api.getPatternGame(difficulty, patternType);
       setGame(data);
       setMode('single');
       setResult(null);
     } catch (err) {
       console.error('Failed to start game:', err);
+      setError('Failed to start game. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -37,12 +40,14 @@ export default function PatternPrediction() {
     if (!game) return;
 
     setLoading(true);
+    setError(null);
     try {
       const data = await api.submitPatternGuess(game.gameId, guess, guessType, betAmount);
       setResult(data);
       updateBalance(data.newBalance);
     } catch (err) {
       console.error('Failed to submit guess:', err);
+      setError(err.message || 'Failed to submit guess');
     } finally {
       setLoading(false);
     }
@@ -58,12 +63,19 @@ export default function PatternPrediction() {
     setMode('menu');
     setGame(null);
     setResult(null);
+    setError(null);
   };
 
   if (mode === 'menu') {
     return (
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center">Pattern Prediction</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-casino-gold font-serif">Oracle Roulette</h1>
+
+        {error && (
+          <div className="bg-red-500/20 border border-red-500 text-red-200 p-4 rounded-lg mb-6 text-center">
+            {error}
+          </div>
+        )}
 
         <div className="card mb-6">
           <h2 className="text-xl font-bold mb-4">How to Play</h2>
@@ -96,11 +108,10 @@ export default function PatternPrediction() {
                 <button
                   key={d}
                   onClick={() => setDifficulty(d)}
-                  className={`px-4 py-2 rounded-lg capitalize transition-colors ${
-                    difficulty === d
-                      ? 'bg-casino-accent text-white'
-                      : 'bg-casino-darker text-gray-400 hover:text-white'
-                  }`}
+                  className={`px-4 py-2 rounded-lg capitalize transition-colors border ${difficulty === d
+                    ? 'bg-casino-accent text-white border-casino-accent'
+                    : 'bg-black/40 text-gray-400 border-gray-700 hover:text-white hover:border-gray-500'
+                    }`}
                 >
                   {d}
                 </button>
@@ -113,11 +124,10 @@ export default function PatternPrediction() {
             <div className="flex gap-2">
               <button
                 onClick={() => setPatternType('')}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  patternType === ''
-                    ? 'bg-casino-accent text-white'
-                    : 'bg-casino-darker text-gray-400 hover:text-white'
-                }`}
+                className={`px-4 py-2 rounded-lg transition-colors border ${patternType === ''
+                  ? 'bg-casino-accent text-white border-casino-accent'
+                  : 'bg-black/40 text-gray-400 border-gray-700 hover:text-white hover:border-gray-500'
+                  }`}
               >
                 Random
               </button>
@@ -125,11 +135,10 @@ export default function PatternPrediction() {
                 <button
                   key={t}
                   onClick={() => setPatternType(t)}
-                  className={`px-4 py-2 rounded-lg capitalize transition-colors ${
-                    patternType === t
-                      ? 'bg-casino-accent text-white'
-                      : 'bg-casino-darker text-gray-400 hover:text-white'
-                  }`}
+                  className={`px-4 py-2 rounded-lg capitalize transition-colors border ${patternType === t
+                    ? 'bg-casino-accent text-white border-casino-accent'
+                    : 'bg-black/40 text-gray-400 border-gray-700 hover:text-white hover:border-gray-500'
+                    }`}
                 >
                   {t}
                 </button>
@@ -163,16 +172,16 @@ export default function PatternPrediction() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="flex items-center justify-between mb-6">
-        <button onClick={backToMenu} className="text-gray-400 hover:text-white">
-          &larr; Back to Menu
+      <div className="flex items-center justify-between mb-6 bg-black/40 p-4 rounded-xl border border-white/5">
+        <button onClick={backToMenu} className="text-gray-400 hover:text-casino-gold flex items-center gap-2 transition-colors font-medium">
+          <span>&larr;</span> <span>Main Lobby</span>
         </button>
-        <div className="text-sm text-gray-400">
+        <div className="text-sm text-gray-400 font-mono">
           {game?.patternType && (
-            <span className="capitalize">{game.patternType} Pattern</span>
+            <span className="capitalize text-casino-gold">{game.patternType}</span>
           )}
-          {' '}&bull;{' '}
-          <span className="capitalize">{difficulty}</span>
+          <span className="mx-2 text-gray-600">|</span>
+          <span className="capitalize text-white">{difficulty}</span>
         </div>
       </div>
 
